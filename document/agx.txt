@@ -1,0 +1,7 @@
+AGX套件: 
+  AGX套件型号: AGX Xavier
+  AI: 32 TOPS
+  CUDA核心: 1891668320
+  Tensor CORE: 64
+  显存: 32G
+  存储: 32G
