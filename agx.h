@@ -1,5 +1,4 @@
 #pragma once
-#include "tire.h"
 #include <iostream>
 #include <string>
 using std::string;
