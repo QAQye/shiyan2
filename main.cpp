@@ -14,19 +14,35 @@ void insrtcars(vector<Smartcar> &cars);
 void insertstudents(vector<Student> &students);
 void allocate(vector<Smartcar> cars,vector<Student> students);
 void showPage(const string & filename);
+void testPublishAndSubscriber();
 int main(){
     // 用于设置终端显示的字符编码，否则是乱码
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    vector <Smartcar> cars;
-    vector <Student> students;
-    insrtcars(cars);
-    insertstudents(students);
-    allocate(cars,students);
-    cout<<"相关小车信息、学生信息、分配信息已保存，请按下任意键进入浏览....."<<endl;
-    system("pause");
-    showPage("./document/allocation.txt");
+    int cmd;
+    cout<<"请输入你想要执行的操作"<<endl;
+    cout<<"-----1.进行预览功能-----"<<endl;
+    cout<<"-----2.进行雷达和底盘的订阅者模式测试-----"<<endl;
+    std::cin>>cmd;
+    if(cmd==1){
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        vector <Smartcar> cars;
+        vector <Student> students;
+        insrtcars(cars);
+        insertstudents(students);
+        allocate(cars,students);
+        cout<<"相关小车信息、学生信息、分配信息已保存，请按下任意键进入浏览....."<<endl;
+        system("pause");
+        showPage("./document/allocation.txt");
+
+    }
+    else if(cmd==2){
+        testPublishAndSubscriber();
+    }
+    else{
+        cout<<"退出"<<endl;
+    }
+
 }
 void insrtcars(vector<Smartcar> &cars){
     // 先保证写文件被清理
@@ -152,3 +168,19 @@ void showPage(const string & filename){
             }
         }
     }
+void testPublishAndSubscriber(){
+    Chassis chassis;
+    Lidar lidar;
+    lidar.addSubscriber(&chassis);
+    while(true){
+        cout<<"请输入目前雷达检测到的障碍物状态(用数字表示)"<<endl;
+        cout<<"-----1.障碍物在前方-----"<<endl;
+        cout<<"-----2.障碍物在右前方-----"<<endl;
+        cout<<"-----3.障碍物在左前方-----"<<endl;
+        cout<<"-----0.退出-----"<<endl;
+        int cmd;
+        std::cin>>cmd;
+        if (cmd == 0) break;
+        lidar.setState(cmd);
+    }
+}

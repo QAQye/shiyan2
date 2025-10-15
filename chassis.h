@@ -3,10 +3,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "subscriber.h"
 using std::string;
 using std::cout;
 using std::vector;
-class Chassis{
+class Chassis:public  Subscriber{
     public:
         Chassis(string id="",string model= "SCOUT MINI",int wheelbase_mm = 451,int track_mm = 490,int min_clearance_mm = 115,int min_turn_radius = 0,
         string drive = "四轮四驱",string max_range = "10KM");
@@ -21,6 +22,7 @@ class Chassis{
         string allocateid();
         void print();
         void save(string url="./document/chassis.txt",bool add=false);
+        void notify(int state) override;
     private:
         string id;
         string model;

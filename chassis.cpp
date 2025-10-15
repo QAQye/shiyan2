@@ -88,3 +88,20 @@ void Chassis::save(string url,bool add){
     ofs<<"  轮胎（4个）: "<<endl;
     tires[0]->save(url,true);
 }
+void Chassis::notify(int state){
+    switch (state)
+    {
+    case 1:
+        cout<<"后退....."<<endl;
+        break;
+    case 2:
+        cout<<"左转....."<<endl;
+        break;
+    case 3:
+        cout<<"右转....."<<endl;
+        break;
+    default:
+        cout<<"出现未知状态"<<endl;
+        break;
+    }
+}
