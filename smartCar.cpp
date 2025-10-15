@@ -14,8 +14,6 @@ Smartcar::Smartcar(string id,Chassis chassis,Agx agx,StereoCamera camera,Lidar l
 string Smartcar::alloctId(){
     const std::string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     std::string id = "cqusn"; 
-    // 按照当前时间戳来生成随机数,从而保证每一次不同
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     for (int i=0;i<11;i++){
         id+=chars[rand()%chars.size()];
     }    
@@ -46,7 +44,6 @@ void Smartcar::save(string url,bool add){
     if(!(ofs.is_open())){
         cout<<"文件打开文件失败，无法保存数据"<<endl;
     }
-    ofs << "Car: " <<  endl;
     ofs << "编号: " << id << endl;
     chassis.save(url,true);
     agx.save(url,true);

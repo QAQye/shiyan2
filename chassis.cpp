@@ -22,8 +22,6 @@ string Chassis::allocateid(){
     const std::string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     // 因为底盘的编号是以dp开头的8位数字和字母组成
     string id="dp";
-    // 按照当前的时间戳来生成随机数
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     for(int i=0;i<6;i++){
         id+=chars[rand()%chars.size()];
     }
