@@ -1,5 +1,6 @@
 #include "lidar.h"
 #include <fstream>
+#include <algorithm>
 using std::ofstream; 
 using std::ios;
 using std::endl;
@@ -43,4 +44,25 @@ void Lidar::save(string url,bool add){
     ofs << "  通道数: " << channels<< endl;
     ofs << "  测试范围: " << range_m<< endl;
     ofs << "  功耗: " << power<< endl;
+}
+//加入订阅者
+void Lidar::addSubscriber(Subscriber * sub){
+    // 防止重复加入订阅者
+    if (std::find(subscribers.begin(), subscribers.end(), sub) == subscribers.end())
+        subscribers.push_back(sub);
+}
+//移除订阅者
+void Lidar::removeSubscriber(Subscriber * sub){
+    subscribers.erase(std::remove(subscribers.begin(), subscribers.end(), sub), subscribers.end());
+}
+void Lidar::setState(int state){
+    this->state=state;
+    publish();
+}
+void Lidar::publish(){
+    for(int i=0;i<subscribers.size();i++){
+        // 向订阅者发送更新后的状态
+        subscribers[i]->notify(state);
+    }
+
 }
